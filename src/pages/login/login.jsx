@@ -1,10 +1,14 @@
 // 登录界面的路由组件
 import React, {Component} from 'react'
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { Redirect } from 'react-router-dom'
 
 import logo from './images/logo.png'
 import './login.less'
+import { reqLogin } from '../../api'
+import memeoryUtils from '../../utils/memeoryUtils'
+import storageUtils from '../../utils/storageUtils'
 
 export default class Login extends Component {
     
@@ -17,17 +21,47 @@ export default class Login extends Component {
         2.数据收集
         3.提交
     */
-    handleFinish = (values) =>{ 
-        /* 
+    /* 
         antd表单的onFinish事件传入的参数不是event，而是表单项值的对象，不同于antd3,onFinish会在校验成功之后触发执行
         所以不用像antd3的onSubmit事件一样，在提交时需要再次进行校验，校验成功才可以发送请求，这一步非常重要。
 
         1.输入时校验是为了提示用户输错了
         2.提交时校验是为了向服务器提交正确的数据，如果不进行提交校验，可能会提交错误的数据到服务器
         3.onFinish事件为我们省去了提交时检验这一步骤，定义校验成功才会触发onFinish
-         */
-        console.log(values)
+    */
+    handleFinish = async (values) =>{ 
+        /* 
+            优化：
+            1.使用async,await来取代promise的then与catch的使用
+        */
+        const {username, password} = values
+        // 登录请求
+        /* reqLogin(username, password).then(
+            // 请求成功，读取数据
+            response => {
+                console.log(response.data)
+                if(response.data.status === 0){
+                    message.success('登录成功！')
+                } else {
+                    message.error(response.data.msg)
+                }
+                
+            }
+        ) */
+        const result = await reqLogin(username, password)
+        if(result.status === 0){
+            message.success('登录成功！')
+            // 将用户保存到内存，loaclstorage
+            memeoryUtils.user = result.data
+            storageUtils.setUser(result.data)
+            // 重定向到管理界面
+            this.props.history.replace('/')        
+        } else {
+            message.error(result.msg)
+        }
+        // 不用处理请求失败，因为封装axios的时候已经处理了。即使添加失败的回调也不会触发 
     }
+
     /* 
         自定义验证规则，用于两个输入框共同使用，antd4版本的validator需要返回Promise对象，失败的Promise对象
         失败的信息会被当做错误信息提示输出到界面
@@ -50,6 +84,12 @@ export default class Login extends Component {
         }
     }
     render() {
+        /* 检查是否存在用户登录，若存在，重定向到管理路由界面 / */
+        const user = memeoryUtils.user
+        // 如果内存中不存在用户，重定向到登录界面
+        if(user && user._id){
+            return <Redirect to="/"></Redirect>
+        }
         return (
             <div className='login'>
                 <div className='login-header'>
@@ -62,6 +102,7 @@ export default class Login extends Component {
                     <Form className="login-form" onFinish={this.handleFinish}>
                         <Form.Item
                             name="username"
+                            initialValue="admin"
                             validateFirst="true"
                             // 声明式验证
                             rules={[

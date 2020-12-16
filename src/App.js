@@ -1,6 +1,6 @@
 // react根组件App
-import React, {Component} from 'react'
-import {BrowserRouter, Route, Switch} from 'react-router-dom'
+import React, { Component } from 'react'
+import { BrowserRouter, Route, Switch,Redirect } from 'react-router-dom'
 
 import Login from './pages/login/login'
 import Admin from './pages/admin/admin'
@@ -21,16 +21,14 @@ import Admin from './pages/admin/admin'
 */
 
 export default class App extends Component {
-    
-    render(){
+
+    render() {
         return (
             <BrowserRouter>
-                <Switch>
-                    <Route path='/' component={Login}></Route>
-                    {/* 不使用重定向路由组件就能直接定位到下面这个组件，因为这个路由路径是空的 */}
-                    <Route path='/admin' component={Admin}></Route>
-                    {/* <Redirect to='/login'></Redirect> */}
-                </Switch>
+            <Switch>
+                <Route path='/login' component={Login}></Route>
+                <Route path='/' component={Admin}></Route>
+            </Switch>  
             </BrowserRouter>
         )
     }
