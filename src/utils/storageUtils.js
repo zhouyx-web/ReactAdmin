@@ -13,7 +13,7 @@ import store from 'store'
 
 const USER_KEY = 'user_key'
 
-export default {
+const storageUtils = {
     setUser(user){
         // localStorage.setItem(USER_KEY, JSON.stringify(user));
         store.set(USER_KEY, user)
@@ -27,3 +27,5 @@ export default {
         store.remove(store.remove('user'))
     }
 }
+
+export default storageUtils

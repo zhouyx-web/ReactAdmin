@@ -5,7 +5,9 @@
     缺点：页面刷新，内存中的用户就会消失，就会跳转到登录界面，不能保存用户状态
 */
 
-export default {
+const memeoryUtils = {
     // 初始为空对象
     user:{}
 }
+
+export default memeoryUtils
