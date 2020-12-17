@@ -24,7 +24,7 @@ const storageUtils = {
     },
     remove(){
         // localStorage.removeItem(USER_KEY);
-        store.remove(store.remove('user'))
+        store.remove(store.remove(USER_KEY))
     }
 }
 

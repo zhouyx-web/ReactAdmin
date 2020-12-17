@@ -14,16 +14,21 @@ export default function ajax (url, data={}, method='GET'){
     return new Promise(resolve => {
         let promise
         // 发送请求
+        // const loading = message.loading("登录中...")
         if(method === 'GET'){
             promise = axios.get(url, { params: data })
         } else {
             promise = axios.post(url, data)
         }
 
-        // 请求成功，就把请求成功的响应数据体传递下去
-        promise.then(response => resolve(response.data))
+        // 请求成功，就把请求成功的数据体data响应传递下去
+        promise.then(response => {
+            // message.destroy(loading)
+            resolve(response.data)
+        })
         // 请求失败，提前处理失败请求的处理，就不用在调用时处理，减少重复代码
         .catch(error => {
+            // message.destroy(loading)
             message.error(error.message)
         })
         

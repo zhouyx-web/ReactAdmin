@@ -6,6 +6,7 @@ import { Layout } from 'antd'
 
 import memeoryUtils from '../../utils/memeoryUtils'
 import LeftNav from '../../components/left-nav'
+import Header from '../../components/header'
 import Home from '../home/home'
 import Category from '../category/category'
 import Product from '../product/product'
@@ -16,7 +17,7 @@ import Line from '../charts/line'
 import Pie from '../charts/pie'
 // import storageUtils from '../../utils/storageUtils'
 
-const { Header, Footer, Sider, Content } = Layout
+const { Footer, Sider, Content } = Layout
 
 export default class Admin extends Component {
     render() {
@@ -37,7 +38,7 @@ export default class Admin extends Component {
                     </Sider>
                     <Layout>
                         <Header>Header</Header>
-                        <Content>
+                        <Content style={{margin: "20px", backgroundColor:"#fff"}}>
                             <Switch>
                                 <Route path={'/home'} component={Home}></Route>
                                 <Route path={'/category'} component={Category}></Route>
