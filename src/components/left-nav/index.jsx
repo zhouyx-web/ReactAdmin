@@ -70,7 +70,7 @@ class LeftNav extends Component {
                 <Link to="/home">
                     <div className="left-nav-header">
                         <img src={logo} alt="尚硅谷" />
-                        <h1>硅谷后台</h1>
+                        <h1>商城后台</h1>
                     </div>
                 </Link>
                 

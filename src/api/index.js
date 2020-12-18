@@ -15,7 +15,15 @@ export const reqWeather = id => {
             "district_id": id,
             "ak": "mLgcl1vaoEqLfpBjpgtknRrqG0iGClCf",
             "output": "json",
-            "data_type": "now"
+            "data_type": "now",
+            // "time":Date.now()
         }
     return ajax("/weather/v1/", params).then(response => response.result)
 }
+
+// 查询商品分类列表
+export const reqCategorys = parentId => ajax('/manage/category/list', {parentId})
+// 添加商品分类
+export const reqAddCategory = (parentId, categoryName) => ajax('/manage/category/add', {parentId, categoryName}, 'POST')
+// 更新商品分类
+export const reqUpdateCategory = ({categoryId, categoryName}) => ajax('/manage/category/update', {categoryId, categoryName}, 'POST')
