@@ -32,3 +32,5 @@ export const reqUpdateCategory = ({categoryId, categoryName}) => ajax('/manage/c
 export const reqProducts = (pageNum, pageSize) => ajax('/manage/product/list', {pageNum, pageSize})
 // 根据名称/描述搜索商品列表
 export const reqProductsByKey = (pageNum, pageSize, searchKey, keyType) => ajax('/manage/product/search',{pageNum, pageSize, [keyType]:searchKey})
+// 根据分类id获取分类名
+export const reqCategoryName = categoryId => ajax('/manage/category/info', {categoryId})
