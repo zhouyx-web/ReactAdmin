@@ -11,7 +11,7 @@ import {
 import { PlusOutlined } from '@ant-design/icons'
 
 import LinkButton from '../../components/link-button/link-button'
-import {reqProducts, reqProductsByKey} from '../../api'
+import {reqProducts, reqProductsByKey, reqChangeProductStatus} from '../../api'
 import {PAGE_SIZE} from '../../utils/constants'
 
 const Option = Select.Option
@@ -78,10 +78,10 @@ export default class Home extends Component {
         },
         {
             title: '状态',
-            render: () => (
+            render: product => (
                 <span>
-                    <span>在售</span>
-                    <Button type="primary" size="small" style={{ marginLeft: 10 }}>下架</Button>
+                    <span>{product.status === 1 ? '在售' : '已下架'}</span>
+                    <Button type="primary" size="small" style={{ marginLeft: 10 }} onClick={() => this.changeProdStatus(product)}>{product.status === 1 ? '下架' : '上架'}</Button>
                 </span>
             ),
             align: 'center',
@@ -97,6 +97,18 @@ export default class Home extends Component {
             align: 'center',
         },
     ]
+
+    changeProdStatus = async product => {
+        // alert('changeProdStatus()触发了')
+        // 发送请求修改商品状态
+        const status = product.status === 1 ? 2 : 1
+        const result = await reqChangeProductStatus(product._id, status)
+        // 修改成功就发送请求获取当前页码的商品列表
+        if (result.status === 0){
+            message.success(status === 1 ? '商品上架成功' : '商品下架成功')
+            this.getProducts(this.state.currentPage)
+        }
+    }
 
     /* 获取指定页码的商品列表 */
     getProducts = async pageNum => {

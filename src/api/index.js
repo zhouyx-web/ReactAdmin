@@ -34,3 +34,5 @@ export const reqProducts = (pageNum, pageSize) => ajax('/manage/product/list', {
 export const reqProductsByKey = (pageNum, pageSize, searchKey, keyType) => ajax('/manage/product/search',{pageNum, pageSize, [keyType]:searchKey})
 // 根据分类id获取分类名
 export const reqCategoryName = categoryId => ajax('/manage/category/info', {categoryId})
+// 修改商品的状态
+export const reqChangeProductStatus = (productId, status) => ajax('/manage/product/updateStatus', {productId, status}, 'POST')
