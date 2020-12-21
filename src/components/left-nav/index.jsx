@@ -27,7 +27,7 @@ class LeftNav extends Component {
             } else {
                 const path = this.props.location.pathname
                 // menuItem.children是一个数组，查看这个数组中是否有对象的path值与当前的pathname相等
-                if(menuItem.children.find(subItem => path === subItem.path)){
+                if(menuItem.children.find(subItem => path.indexOf(subItem.path) === 0)){
                     this.openKey = menuItem.path
                 }
 
@@ -62,7 +62,10 @@ class LeftNav extends Component {
     }
     render() {
         /* 获取地址栏的pathname和需要打开的子菜单key */
-        const path = this.props.location.pathname
+        let path = this.props.location.pathname
+        if(path.indexOf('/product') === 0){
+            path = '/product'
+        }
         const openKey = this.openKey
         // console.log('leftBar',path)
         return (
@@ -75,7 +78,9 @@ class LeftNav extends Component {
                 </Link>
                 
                 <Menu
+                    // 默认选中的菜单项
                     selectedKeys={[path]}
+                    // 默认打开的子菜单
                     defaultOpenKeys={[openKey]}
                     mode="inline"
                     theme="dark"
