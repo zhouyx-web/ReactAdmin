@@ -39,7 +39,7 @@ class Header extends Component{
             if(menuItem.path === path){
                 title = menuItem.title
             } else if (menuItem.children) {
-                const cItem = menuItem.children.find(cItem => path === cItem.path)
+                const cItem = menuItem.children.find(cItem => path.indexOf(cItem.path) === 0)
                 if(cItem) {
                     title = cItem.title
                 }

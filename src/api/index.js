@@ -36,3 +36,5 @@ export const reqProductsByKey = (pageNum, pageSize, searchKey, keyType) => ajax(
 export const reqCategoryName = categoryId => ajax('/manage/category/info', {categoryId})
 // 修改商品的状态
 export const reqChangeProductStatus = (productId, status) => ajax('/manage/product/updateStatus', {productId, status}, 'POST')
+// 删除图片
+export const reqDeletePic = name => ajax('/manage/img/delete', {name} , 'POST')

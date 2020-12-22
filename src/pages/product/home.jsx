@@ -53,7 +53,7 @@ export default class Home extends Component {
  */
     /* 初始化卡片新增按钮 */
     cardExtra =  (
-        <Button type="primary">
+        <Button type="primary" onClick={() => this.props.history.push('/product/addupdate')}>
             <PlusOutlined />添加商品
         </Button>
     )
@@ -91,7 +91,7 @@ export default class Home extends Component {
             render: product => (
                 <span>
                     <LinkButton onClick={() => this.props.history.push('/product/detail', product)}>详情</LinkButton>
-                    <LinkButton onClick={() => this.props.history.push('/product/addupdate')}>修改</LinkButton>
+                    <LinkButton onClick={() => this.props.history.push('/product/addupdate', product)}>修改</LinkButton>
                 </span>
             ),
             align: 'center',
