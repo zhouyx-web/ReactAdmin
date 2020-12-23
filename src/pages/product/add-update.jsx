@@ -6,12 +6,14 @@ import {
     Button,
     Form,
     Cascader,
+    message
 } from 'antd'
 import { ArrowLeftOutlined } from '@ant-design/icons'
 
 import LinkButton from '../../components/link-button/link-button'
-import {reqCategorys} from '../../api'
+import {reqCategorys, reqAddOrUpdateProduct} from '../../api'
 import PictureWall from './picture-wall'
+import RichTextEditor from './rich-text-editor'
 
 const {Item} = Form
 const {TextArea } = Input
@@ -24,6 +26,8 @@ export default class AddUpdate extends Component{
         this.isUpdate = !! this.props.location.state
         // 创建ref保存PictureWall组件对象
         this.picWallRef = React.createRef()
+        // 保存文本编辑器的组件对象
+        this.textEditorRef = React.createRef()
     }
 
     state = {
@@ -94,10 +98,41 @@ export default class AddUpdate extends Component{
         } 
     }
 
-    onFinish = values => {
+    onFinish = async values => {
         // console.log(this.picWallRef.current)
-        values.imgs = this.picWallRef.current.getFileListsName()
-        console.log("收集表单数据并发送", values)
+        // 获取图片名数组，html文本
+        const imgs = this.picWallRef.current.getFileListsName()
+        const detail = this.textEditorRef.current.getHtmlFromEditorState()
+        let pCategoryId, categoryId
+        const {name, desc, price, categoryIds} = values
+        if(categoryIds.length === 1){
+            pCategoryId = '0'
+            categoryId = categoryIds[0]
+        } else {
+            pCategoryId = categoryIds[0]
+            categoryId = categoryIds[1]
+        }
+        const product = {name, desc, price, pCategoryId, categoryId, imgs, detail}
+        // 判断是更新商品还是添加商品
+        if(this.isUpdate){
+            product._id = this.props.location.state._id
+        }
+        
+        // 发送请求
+        const result = await reqAddOrUpdateProduct(product)
+        // 判断请求结果
+        if(result.status === 0){
+            // 跳转到商品界面
+            this.props.history.goBack()
+            if(this.isUpdate){
+                message.success("商品修改成功")
+            } else {
+                message.success("商品添加成功")
+            }
+        } else {
+            message.error("操作失败")
+        }
+        // console.log("收集表单数据并发送", values)
     }
 
     componentDidMount() {
@@ -192,7 +227,7 @@ export default class AddUpdate extends Component{
                         <PictureWall ref={this.picWallRef} imgs={isUpdate ? imgs : null}/>
                     </Item>
                     <Item name="detail" label="商品详情：">
-                        <div>商品详情</div>
+                        <RichTextEditor ref={this.textEditorRef} detail={detail} />
                     </Item>
                     <Item>
                     <Button type="primary" htmlType="submit">

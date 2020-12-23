@@ -38,3 +38,5 @@ export const reqCategoryName = categoryId => ajax('/manage/category/info', {cate
 export const reqChangeProductStatus = (productId, status) => ajax('/manage/product/updateStatus', {productId, status}, 'POST')
 // 删除图片
 export const reqDeletePic = name => ajax('/manage/img/delete', {name} , 'POST')
+// 添加/修改商品
+export const reqAddOrUpdateProduct = product => ajax(`/manage/product/${product._id ? 'update' : 'add'}`, product,'POST')

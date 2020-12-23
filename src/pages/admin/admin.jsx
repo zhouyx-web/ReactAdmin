@@ -31,30 +31,28 @@ export default class Admin extends Component {
         }
         // 如果存在用户,输出问候语
         return (
-            <div style={{height:"100%"}}>
-                <Layout style={{height:"100%"}}>
-                    <Sider>
-                        <LeftNav></LeftNav>
-                    </Sider>
-                    <Layout>
-                        <Header>Header</Header>
-                        <Content style={{margin: "20px 20px 0", backgroundColor:"#fff"}}>
-                            <Switch>
-                                <Route path={'/home'} component={Home}></Route>
-                                <Route path={'/category'} component={Category}></Route>
-                                <Route path={'/product'} component={Product}></Route>
-                                <Route path={'/user'} component={User}></Route>
-                                <Route path={'/role'} component={Role}></Route>
-                                <Route path={'/charts/bar'} component={Bar}></Route>
-                                <Route path={'/charts/line'} component={Line}></Route>
-                                <Route path={'/charts/pie'} component={Pie}></Route>
-                                <Redirect to="/home"></Redirect>
-                            </Switch>
-                        </Content>
-                        <Footer style={{textAlign:"center", color:"grey", fontSize:"10px"}}>建议使用谷歌浏览器以获得良好的使用体验</Footer>
-                    </Layout>
+            <Layout style={{minHeight:"100%"}}>
+                <Sider>
+                    <LeftNav></LeftNav>
+                </Sider>
+                <Layout>
+                    <Header>Header</Header>
+                    <Content style={{margin: "20px 20px 0", backgroundColor:"#fff"}}>
+                        <Switch>
+                            <Route path={'/home'} component={Home}></Route>
+                            <Route path={'/category'} component={Category}></Route>
+                            <Route path={'/product'} component={Product}></Route>
+                            <Route path={'/user'} component={User}></Route>
+                            <Route path={'/role'} component={Role}></Route>
+                            <Route path={'/charts/bar'} component={Bar}></Route>
+                            <Route path={'/charts/line'} component={Line}></Route>
+                            <Route path={'/charts/pie'} component={Pie}></Route>
+                            <Redirect to="/home"></Redirect>
+                        </Switch>
+                    </Content>
+                    <Footer style={{textAlign:"center", color:"grey", fontSize:"10px"}}>建议使用谷歌浏览器以获得良好的使用体验</Footer>
                 </Layout>
-            </div>
+            </Layout>
         )
     }
 }

@@ -77,7 +77,8 @@ export default class Detail extends Component {
                                 }
                             </List.Item>
                             <List.Item>
-                                <Typography.Text className="left">商品详情：</Typography.Text> {item.detail}
+                                <Typography.Text className="left">商品详情：</Typography.Text> 
+                                <span dangerouslySetInnerHTML={{__html:item.detail}}></span>
                             </List.Item>
                         </>
                         
