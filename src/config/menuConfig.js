@@ -8,7 +8,8 @@ import {
     AreaChartOutlined,
     BarChartOutlined,
     LineChartOutlined,
-    PieChartOutlined
+    PieChartOutlined,
+    FormOutlined
 } from '@ant-design/icons'
 
 const menuConfig = [
@@ -65,6 +66,11 @@ const menuConfig = [
                 path: '/charts/pie',
             },
         ]
+    },
+    {
+        title: '订单管理',
+        icon: <FormOutlined />,
+        path: '/order'
     },
 ]
 

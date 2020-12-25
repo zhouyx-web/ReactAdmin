@@ -7,13 +7,19 @@ import {
     message
 } from 'antd'
 
-import { reqRoleList } from '../../api'
+import { reqRoleList, reqUpdateRole } from '../../api'
 import { PAGE_SIZE } from '../../utils/constants'
 import AddRoleForm from './add-role-form'
 import AuthForm from './auth-form'
 import {reqAddRole} from '../../api'
+import dateToString from '../../utils/dateUtils'
+import memeoryUtils from '../../utils/memeoryUtils'
 
 export default class Role extends Component {
+
+    /* 授权表单组件的引用 */
+    authFormRef = React.createRef()
+
     // 角色列表
     state = {
         roleList: [], // 角色列表
@@ -31,10 +37,12 @@ export default class Role extends Component {
         {
             title: '创建时间',
             dataIndex: 'create_time',
+            render: create_time => dateToString(create_time),
         },
         {
             title: '授权时间',
             dataIndex: 'auth_time',
+            render: auth_time => dateToString(auth_time),
         },
         {
             title: '授权人',
@@ -50,6 +58,7 @@ export default class Role extends Component {
     setRolePermission = () => {
         // console.log('setRolePermission()')
         this.setState({showAuthForm:true})
+
     }
 
     /* 创建角色 */
@@ -100,13 +109,43 @@ export default class Role extends Component {
         this.setState({showAuthForm:false})
     }
 
+    /* 点击更新角色按钮执行的函数 */
+    updateRole = async () => {
+        // 收集数据
+        const _id = this.selectRow._id
+        const menus = this.authFormRef.current.getSelectKeys()
+        const auth_time = Date.now()
+        const auth_name = memeoryUtils.user.username
+        // console.log('updateRole()', menus)
+        // 发送请求
+        const result = await reqUpdateRole({_id, menus, auth_time, auth_name})
+        // 处理结果
+        if(result.status === 0){
+            message.success("更新角色权限成功")
+            // 更新状态 复制一份新的state
+            const roleList = this.state.roleList.slice()
+            const newRole = result.data
+            // 找到更新的角色对象，更新权限列表数组
+            for (let i = 0; i < roleList.length; i++) {
+                if(roleList[i]._id === newRole._id) {
+                    roleList[i].menus = newRole.menus
+                    roleList[i].auth_time = newRole.auth_time
+                    roleList[i].auth_name = newRole.auth_name
+                    break
+                }
+            }
+            this.setState({roleList, showAuthForm: false})
+        }
+        
+    }
+
     componentDidMount() {
         // 初始化角色列表数据
         this.initRoleList()
     }
 
     render() {
-        const { columns } = this
+        const { columns, selectRow } = this
         const { roleList, loading, selectedRowKeys, showAddRoleForm, showAuthForm } = this.state
         // 卡片标题
         const cardTitle = (
@@ -140,7 +179,11 @@ export default class Role extends Component {
                         type: "radio",
                         selectedRowKeys,
                     }}
-                    onRow={role => ({ onClick: () => this.setState({ selectedRowKeys: [role._id] }) })}
+                    onRow={role => ({ onClick: () => {
+                        this.setState({ selectedRowKeys: [role._id] })
+                        // 保存选中的行信息
+                        this.selectRow = role
+                    }})}
                 />
                 <Modal
                     title="添加角色"
@@ -155,12 +198,12 @@ export default class Role extends Component {
                 <Modal
                     title="设置角色权限"
                     visible={showAuthForm}
-                    onOk={this.hideAuthModal}
+                    onOk={this.updateRole}
                     onCancel={this.hideAuthModal}
                     okText="确认"
                     cancelText="取消"
                 >
-                    <AuthForm/>
+                    <AuthForm selectRow={selectRow} ref={this.authFormRef}/>
                 </Modal>
             </Card>
         )
