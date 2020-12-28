@@ -16,7 +16,8 @@ const menuConfig = [
     {
         title: '首页',
         icon: <HomeOutlined />,
-        path: '/home'
+        path: '/home',
+        isPublic: true,
     },
     {
         title: '商品',
