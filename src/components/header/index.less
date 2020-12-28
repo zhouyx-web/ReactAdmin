@@ -1,0 +1,45 @@
+.header{
+    height: 80px;
+    background-color: #fff;
+    .header-top{
+        text-align: right;
+        height: 38px;
+        border-bottom: 2px green solid;
+        line-height: 38px;
+        margin-right: 30px;
+        span{
+            margin-right: 10px;
+        }
+    }
+    .header-bottom{
+        height: 40px;
+        display: flex;
+        align-items: center;
+        .header-bottom-left{
+            width: 25%;
+            text-align: center;
+            position: relative;
+            font-size: 20px;
+            &::after{
+                content: '';
+                border-top: #fff 20px solid;
+                border-left: transparent 20px solid;
+                border-right: transparent 20px solid;
+                border-bottom: transparent 20px solid;
+                position: absolute;
+                left: 50%;
+                top: 100%;
+                margin-left: -20px;
+                // margin-top: -10px;
+            }
+        }
+        .header-bottom-right{
+            text-align: right;
+            width: 75%;
+            margin-right: 30px;
+            .weather{
+                margin-left: 15px;
+            }
+        }
+    }
+}

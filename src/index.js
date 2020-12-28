@@ -3,5 +3,10 @@
 import ReactDOM from 'react-dom'
 
 import App from './app.js'
+import memeoryUtils from './utils/memeoryUtils'
+import storageUtils from './utils/storageUtils'
+
+const user = storageUtils.getUser()
+memeoryUtils.user = user
 
 ReactDOM.render(<App />, document.getElementById('root'))
