@@ -4,6 +4,7 @@
 import React, { Component } from 'react'
 import { Menu } from 'antd'
 import { Link, withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import logo from '../../assets/images/logo.png'
 import './index.less'
@@ -13,6 +14,12 @@ import memeoryUtils from '../../utils/memeoryUtils'
 const { SubMenu } = Menu
 
 class LeftNav extends Component {
+
+    static propTypes = {
+        // 用于更改redux状态的函数
+        setHeaderTitle:PropTypes.func.isRequired
+    }
+
     constructor(props) {
         super(props)
         this.menuNodes = this.generateMenuByReduce(menuConfig)
@@ -48,7 +55,7 @@ class LeftNav extends Component {
                 if (!menuItem.children) {
                     initVal.push((
                         <Menu.Item key={menuItem.path} icon={menuItem.icon}>
-                            <Link to={menuItem.path}>{menuItem.title}</Link>
+                            <Link to={menuItem.path} onClick={() => this.props.setHeaderTitle(menuItem.title)}>{menuItem.title}</Link>
                         </Menu.Item>
                     ))
                 } else {

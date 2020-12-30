@@ -5,7 +5,7 @@ import { Redirect,Route, Switch } from 'react-router-dom'
 import { Layout } from 'antd'
 
 import memeoryUtils from '../../utils/memeoryUtils'
-import LeftNav from '../../components/left-nav'
+import LeftNav from '../../container/left-nav'
 import Header from '../../components/header'
 import Home from '../home/home'
 import Category from '../category/category'
