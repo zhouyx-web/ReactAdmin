@@ -6,7 +6,7 @@ import {message} from 'antd'
 import ajax from './ajax'
 
 // 登录请求
-export const reqLogin = (username, password) => ajax('/login', {username, password}, 'POST')
+export const reqLogin = (username, password) => ajax('/user/login', {username, password}, 'POST')
 // 添加用户
 export const reqAdduser = data => ajax('/manage/user/add', data, 'POST')
 // 查询天气
