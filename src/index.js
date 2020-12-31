@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 // 引入Provider组件，用于作为redux与components之间的桥梁
 import {Provider} from 'react-redux'
 
-import App from './app.js'
+import App from './App.js'
 import memeoryUtils from './utils/memeoryUtils'
 import storageUtils from './utils/storageUtils'
 import store from './redux/store'
