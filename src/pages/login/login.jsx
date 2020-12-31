@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Redirect } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import logo from '../../assets/images/logo.png'
 import './login.less'
@@ -11,6 +12,10 @@ import memeoryUtils from '../../utils/memeoryUtils'
 import storageUtils from '../../utils/storageUtils'
 
 export default class Login extends Component {
+
+    static propTypes = {
+        user:PropTypes.object.isRequired
+    }
     
     /* 
         antd中定义包含了From表单组件的组件为表单组件，这里的Login组件就是一个表单组件，需要对Login进行包装
@@ -85,8 +90,8 @@ export default class Login extends Component {
     }
     render() {
         /* 检查是否存在用户登录，若存在，重定向到管理路由界面 / */
-        const user = memeoryUtils.user
-        // 如果内存中不存在用户，重定向到登录界面
+        const user = this.props.user
+        // 如果内存中存在用户，重定向到管理界面
         if(user && user._id){
             return <Redirect to="/"></Redirect>
         }

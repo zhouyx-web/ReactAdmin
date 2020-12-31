@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
+// import Login from './container/login'
 import Login from './pages/login/login'
 import Admin from './pages/admin/admin'
 /* 

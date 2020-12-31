@@ -6,7 +6,7 @@ import { Layout } from 'antd'
 
 import memeoryUtils from '../../utils/memeoryUtils'
 import LeftNav from '../../container/left-nav'
-import Header from '../../components/header'
+import Header from '../../container/header'
 import Home from '../home/home'
 import Category from '../category/category'
 import Product from '../product/product'

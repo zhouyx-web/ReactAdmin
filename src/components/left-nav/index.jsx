@@ -52,6 +52,13 @@ class LeftNav extends Component {
         return menuConfig.reduce((initVal, menuItem) => {
             // 判断当前菜单项或者子菜单是否存在于当前用户的权限列表
             if (this.shouldRender(menuItem)) {
+                // 刷新页面时，根据用户选择的菜单标题更改store中的状态用于初始化显示
+                const path = this.props.location.pathname
+                // 如果当前路由路径与某一个菜单路径一致，就取出菜单标题更改状态
+                if(path === menuItem.path){
+                    this.props.setHeaderTitle(menuItem.title)
+                }
+
                 if (!menuItem.children) {
                     initVal.push((
                         <Menu.Item key={menuItem.path} icon={menuItem.icon}>

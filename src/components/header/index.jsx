@@ -5,6 +5,7 @@ import React, {Component} from 'react'
 import { Modal, message } from 'antd'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import { withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import './index.less'
 import {reqWeather} from '../../api'
@@ -17,6 +18,10 @@ import LinkButton from '../link-button/link-button'
 const { confirm } = Modal
 
 class Header extends Component{
+
+    static propTypes = {
+        headerTitle:PropTypes.string.isRequired
+    }
 
     state = {
         currentTime:dateUtils(Date.now()),
@@ -93,7 +98,8 @@ class Header extends Component{
         const {country, city, name, text} = this.state.weather
         const {getWeather, currentTime} = this.state
         const username = memeoryUtils.user.username
-        const title = this.getTitle(menuConfig)
+        // const title = this.getTitle(menuConfig)
+        const title = this.props.headerTitle
         return (
             <div className="header">
                 <div className="header-top">
