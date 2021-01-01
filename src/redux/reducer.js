@@ -3,7 +3,7 @@ import {combineReducers} from 'redux'
 
 // 引入读取localStorage信息管理模块
 import storageUtils from '../utils/storageUtils'
-import {SET_HEADER_TITLE, USER_LOGIN} from './action-types'
+import {SET_HEADER_TITLE, USER_LOGIN, USER_LOGOUT} from './action-types'
 
 
 // 管理user的reducer函数
@@ -12,6 +12,8 @@ function user (state = initUser, action) {
     switch(action.type){
         case USER_LOGIN:
             return action.user
+        case USER_LOGOUT:
+            return {}
         default:
             return state
     }

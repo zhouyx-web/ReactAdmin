@@ -6,6 +6,7 @@ import {
     Modal,
     message
 } from 'antd'
+import PropTypes from 'prop-types'
 
 import { reqRoleList, reqUpdateRole } from '../../api'
 import { PAGE_SIZE } from '../../utils/constants'
@@ -13,9 +14,12 @@ import AddRoleForm from './add-role-form'
 import AuthForm from './auth-form'
 import {reqAddRole} from '../../api'
 import dateToString from '../../utils/dateUtils'
-import memeoryUtils from '../../utils/memeoryUtils'
 
 export default class Role extends Component {
+
+    static propTypes = {
+        user:PropTypes.object.isRequired,
+    }
 
     /* 授权表单组件的引用 */
     authFormRef = React.createRef()
@@ -115,7 +119,7 @@ export default class Role extends Component {
         const _id = this.selectRow._id
         const menus = this.authFormRef.current.getSelectKeys()
         const auth_time = Date.now()
-        const auth_name = memeoryUtils.user.username
+        const auth_name = this.props.user.username
         // console.log('updateRole()', menus)
         // 发送请求
         const result = await reqUpdateRole({_id, menus, auth_time, auth_name})

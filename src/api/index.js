@@ -1,7 +1,6 @@
 /* 
     包装接口，便于外部调用
 */
-import {message} from 'antd'
 
 import ajax from './ajax'
 

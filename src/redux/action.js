@@ -6,7 +6,7 @@
 
 import { message } from 'antd'
 
-import { SET_HEADER_TITLE, USER_LOGIN } from './action-types'
+import { SET_HEADER_TITLE, USER_LOGIN, USER_LOGOUT } from './action-types'
 import { reqLogin } from '../api'
 import storageUtils from '../utils/storageUtils'
 
@@ -14,6 +14,8 @@ import storageUtils from '../utils/storageUtils'
 export const setHeaderTitle = title => ({ type: SET_HEADER_TITLE, title })
 // 同步产生用户登录成功的action
 export const loginSuccess = user => ({ type: USER_LOGIN, user })
+// 同步产生用户登出的action
+export const logout = () => ({type:USER_LOGOUT})
 
 // 异步产生登录请求的action
 export const userLogin = (username, password) => {
@@ -26,6 +28,7 @@ export const userLogin = (username, password) => {
             dispatch(loginSuccess(user))
             // 将用户保存到localstorage
             storageUtils.setUser(user)
+            message.success('登录成功')
         } else {
             // 登录失败，给出用户提示
             message.error(result.msg)

@@ -63,7 +63,7 @@ export default class AuthForm extends Component {
         /* 此树控件使用受控模式，所以selectkeys需要从state中获取，所以初始化更新state的最好位置就是
         这个声明周期函数；当然，改为非受控模式，解决初始化的问题就会变得非常简单，执行render()时，直接修改
         选中的值就行。 */
-        if(state.selectRow._id !== props.selectRow._id){
+        if(state.selectRow && (state.selectRow._id !== props.selectRow._id)){
             return {
                 selectRow:props.selectRow,
                 checkedKeys:props.selectRow.menus

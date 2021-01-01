@@ -11,7 +11,6 @@ import './index.less'
 import {reqWeather} from '../../api'
 import memeoryUtils from '../../utils/memeoryUtils'
 import storageUtils from '../../utils/storageUtils'
-import menuConfig from '../../config/menuConfig'
 import dateUtils from '../../utils/dateUtils'
 import LinkButton from '../link-button/link-button'
 
@@ -20,7 +19,9 @@ const { confirm } = Modal
 class Header extends Component{
 
     static propTypes = {
-        headerTitle:PropTypes.string.isRequired
+        headerTitle:PropTypes.string.isRequired,
+        user:PropTypes.object.isRequired,
+        logout:PropTypes.func.isRequired,
     }
 
     state = {
@@ -54,15 +55,14 @@ class Header extends Component{
     }
 
     handleClick = () => {
-        const user = memeoryUtils.user.username
+        const username = this.props.user.username
         confirm({
-            title: `用户:${user}是否退出登录?`,
+            title: `用户:${username}是否退出登录?`,
             icon: <ExclamationCircleOutlined />,
             onOk:() => {
                 // 删除localStorage与内存中的用户数据，重定向到登录界面
                 storageUtils.remove()
-                memeoryUtils.user = {}
-                this.props.history.replace('/login')
+                this.props.logout()
                 message.success('退出成功！')
             },
             onCancel() {

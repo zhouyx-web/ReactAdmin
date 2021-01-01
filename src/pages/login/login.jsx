@@ -1,15 +1,12 @@
 // 登录界面的路由组件
 import React, {Component} from 'react'
-import { Form, Input, Button, message } from 'antd';
+import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import logo from '../../assets/images/logo.png'
 import './login.less'
-import { reqLogin } from '../../api'
-import memeoryUtils from '../../utils/memeoryUtils'
-import storageUtils from '../../utils/storageUtils'
 
 export default class Login extends Component {
 
