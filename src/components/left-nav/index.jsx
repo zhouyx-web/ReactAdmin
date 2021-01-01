@@ -9,7 +9,6 @@ import PropTypes from 'prop-types'
 import logo from '../../assets/images/logo.png'
 import './index.less'
 import menuConfig from '../../config/menuConfig'
-import memeoryUtils from '../../utils/memeoryUtils'
 
 const { SubMenu } = Menu
 
@@ -17,7 +16,8 @@ class LeftNav extends Component {
 
     static propTypes = {
         // 用于更改redux状态的函数
-        setHeaderTitle:PropTypes.func.isRequired
+        setHeaderTitle:PropTypes.func.isRequired,
+        user:PropTypes.object.isRequired,
     }
 
     constructor(props) {
@@ -28,8 +28,8 @@ class LeftNav extends Component {
     // 判断是否应该渲染当前菜单项item
     shouldRender = item => {
         // 取出当前登录的用户的用户名及权限列表
-        const {username} = memeoryUtils.user
-        const permissionList = memeoryUtils.user.role.menus
+        const {username} = this.props.user
+        const permissionList = this.props.user.role.menus
         // 取出当前item对应的路由路径，路由路径对应着权限列表的值
         const permission = item.path
         // console.log('shouldRender()', permissionList, permission, username)

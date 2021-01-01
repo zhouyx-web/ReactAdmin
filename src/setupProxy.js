@@ -8,7 +8,7 @@ module.exports = function (app) {
         changeOrigin: true
     }))
 
-    app.use(createProxyMiddleware('/login', {
+    app.use(createProxyMiddleware('/user/login', {
         target: "http://127.0.0.1:5000",
         secure: false,
         changeOrigin: true,

@@ -2,9 +2,8 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
-// import Login from './container/login'
-import Login from './pages/login/login'
-import Admin from './pages/admin/admin'
+import Login from './container/login'
+import Admin from './container/admin'
 /* 
     分为两种路由器
     BrowserRouter url上不会带#号

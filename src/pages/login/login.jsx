@@ -14,7 +14,8 @@ import storageUtils from '../../utils/storageUtils'
 export default class Login extends Component {
 
     static propTypes = {
-        user:PropTypes.object.isRequired
+        user:PropTypes.object.isRequired,
+        userLogin:PropTypes.func.isRequired,
     }
     
     /* 
@@ -40,6 +41,7 @@ export default class Login extends Component {
             1.使用async,await来取代promise的then与catch的使用
         */
         const {username, password} = values
+        this.props.userLogin(username, password)
         // 登录请求
         /* reqLogin(username, password).then(
             // 请求成功，读取数据
@@ -53,7 +55,7 @@ export default class Login extends Component {
                 
             }
         ) */
-        const result = await reqLogin(username, password)
+        /* const result = await reqLogin(username, password)
         if(result.status === 0){
             message.success('登录成功！')
             // 将用户保存到内存，loaclstorage
@@ -63,7 +65,7 @@ export default class Login extends Component {
             this.props.history.replace('/')        
         } else {
             message.error(result.msg)
-        }
+        } */
         // 不用处理请求失败，因为封装axios的时候已经处理了。即使添加失败的回调也不会触发 
     }
 
