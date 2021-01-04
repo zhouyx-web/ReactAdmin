@@ -1,48 +1,45 @@
-// 引入combineReducers函数合并reducer
-import {combineReducers} from 'redux'
+/*
+reducer函数模块: 根据当前state和指定action返回一个新的state
+ */
+import {combineReducers} from '../lib/redux/redux'
+import {INCREMENT, DECREMENT} from './action-types'
 
-// 引入读取localStorage信息管理模块
-import storageUtils from '../utils/storageUtils'
-import {SET_HEADER_TITLE, USER_LOGIN, USER_LOGOUT} from './action-types'
+/*
+管理count状态数据的reducer
+ */
+export default function count(state=1, action) {
+  console.log('count()', state, action)
+  switch (action.type) {
+    case INCREMENT:
+      return state + action.data
+    case DECREMENT:
+      return state - action.data
+    default:
+      return state
+  }
 
-
-// 管理user的reducer函数
-const initUser = storageUtils.getUser()
-function user (state = initUser, action) {
-    switch(action.type){
-        case USER_LOGIN:
-            return action.user
-        case USER_LOGOUT:
-            return {}
-        default:
-            return state
-    }
 }
 
-
-// 管理headerTitle的reducer函数
-const initHeaderTitle = '首页'
-function headerTitle (state = initHeaderTitle, action) {
-    switch(action.type){
-        case SET_HEADER_TITLE:
-            return action.title
-        default:
-            return state
-    }
+const initUser = {}
+/*
+管理user状态数据的reducer
+ */
+function user(state = initUser, action) {
+  switch (action.type) {
+    default:
+      return state
+  }
 }
 
-
-
-/* 
-    combineReducers函数接受一个对象，对象属性是多个管理state的reducer函数
-    返回值是一个整合所有reducer的函数，这个总的reducer函数管理一个总的状态state
-    state = {
-        headerTitle,
-        user
-    }
-    状态的属性名就是传入的reducer函数名，值就是各自reducer管理的state属性名
-*/
-export default combineReducers({
-    user,
-    headerTitle,
+/*
+combineReducers函数: 接收包含所有reducer函数的对象, 返回一个新的reducer函数(总reducer)
+总的reducer函数管理的state的结构
+  {
+    count: 2,
+    user: {}
+  }
+ */
+combineReducers({
+  count,
+  user
 })

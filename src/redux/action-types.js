@@ -1,9 +1,5 @@
-/* 
-    action type属性模块
-*/
-// 标题状态
-export const SET_HEADER_TITLE = 'set_header_title'
-// 用户登录action type
-export const USER_LOGIN = 'user_login'
-// 用户登出
-export const USER_LOGOUT = 'user_logout'
+/*
+包含n个action type常量名称的模块
+ */
+export const INCREMENT = 'increment'
+export const DECREMENT = 'decrement'
