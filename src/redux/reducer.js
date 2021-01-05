@@ -7,13 +7,13 @@ import {INCREMENT, DECREMENT} from './action-types'
 /*
 管理count状态数据的reducer
  */
-export default function count(state=1, action) {
+function count(state=1, action) {
   console.log('count()', state, action)
   switch (action.type) {
     case INCREMENT:
-      return state + action.data
+      return state.count + action.data
     case DECREMENT:
-      return state - action.data
+      return state.count - action.data
     default:
       return state
   }
@@ -25,6 +25,7 @@ const initUser = {}
 管理user状态数据的reducer
  */
 function user(state = initUser, action) {
+  console.log('user()', state, action)
   switch (action.type) {
     default:
       return state
@@ -39,7 +40,7 @@ combineReducers函数: 接收包含所有reducer函数的对象, 返回一个新
     user: {}
   }
  */
-combineReducers({
+export default combineReducers({
   count,
   user
 })

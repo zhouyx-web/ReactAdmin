@@ -50,8 +50,13 @@ export const createStore = reducer => {
 
 // 2.combineReducers(),接受一个对象，对象属性为reducer函数名，返回一个总的reducer函数
 export const combineReducers = reducers => {
-    return () => {
-
+    return (state, action) => {
+        // 取出所有的reducer函数，一次调用产生state,合并成新的state
+        let newState = Object.keys(reducers).reduce((totalState, key) => {
+            totalState[key] = reducers[key](state, action)
+            return totalState
+        }, {})
+        return newState
     }
 } 
 

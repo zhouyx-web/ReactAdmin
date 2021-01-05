@@ -3,19 +3,19 @@
  */
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {Provider} from 'react-redux'
+import {Provider} from './lib/react-redux/react-redux'
 
-// import App from './containers/App'
-import App from './components/Counter'
+import App from './containers/App'
+// import App from './components/Counter'
 import store from './redux/store'
 
-/* ReactDOM.render((
+ReactDOM.render((
   <Provider store={store}>
     <App/>
   </Provider>
-), document.getElementById('root')) */
+), document.getElementById('root'))
 
-ReactDOM.render((
+/* ReactDOM.render((
     <App store={store}/>
 ), document.getElementById('root'))
 
@@ -24,4 +24,4 @@ store.subscribe(() => {
     <App store={store}/>
   ), document.getElementById('root'))
   console.log('listener execute')
-})
+}) */

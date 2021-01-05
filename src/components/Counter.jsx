@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {increment, decrement} from '../redux/actions'
+// import {increment, decrement} from '../redux/actions'
 
 /*
 UI组件
@@ -9,12 +9,12 @@ UI组件
  */
 export default class Counter extends Component {
 
-  // static propTypes = {
-  //   count: PropTypes.number.isRequired,
-  //   increment: PropTypes.func.isRequired,
-  //   decrement: PropTypes.func.isRequired,
-  //   // incrementAsync: PropTypes.func.isRequired,
-  // }
+  static propTypes = {
+    count: PropTypes.number.isRequired,
+    increment: PropTypes.func.isRequired,
+    decrement: PropTypes.func.isRequired,
+    // incrementAsync: PropTypes.func.isRequired,
+  }
 
 
   constructor(props) {
@@ -25,23 +25,24 @@ export default class Counter extends Component {
 
   increment = () => {
     const number = this.numberRef.current.value * 1
-    // this.props.increment(number)
-    this.props.store.dispatch(increment(number))
+    this.props.increment(number)
+    // this.props.store.dispatch(increment(number))
   }
 
   decrement = () => {
     const number = this.numberRef.current.value * 1
-    // this.props.decrement(number)
-    this.props.store.dispatch(decrement(number))
+    this.props.decrement(number)
+    // this.props.store.dispatch(decrement(number))
 
   }
 
   incrementIfOdd = () => {
     const number = this.numberRef.current.value * 1
-    const count = this.props.store.getState()
+    // const count = this.props.store.getState().count
+    const count = this.props.count
     if (count % 2 === 1) {
-      // this.props.increment(number)
-      this.props.store.dispatch(increment(number))
+      this.props.increment(number)
+      // this.props.store.dispatch(increment(number))
     }
 
   }
@@ -49,15 +50,16 @@ export default class Counter extends Component {
   incrementAsync = () => {
     const number = this.numberRef.current.value * 1
     setTimeout(() => {
-      // this.props.increment(number)
-      this.props.store.dispatch(increment(number))
+      this.props.increment(number)
+      // this.props.store.dispatch(increment(number))
     }, 1000);
     
   }
 
   render() {
-    const count = this.props.store.getState()
-    console.log('render()', count)
+    // const count = this.props.store.getState().count
+    const count = this.props.count
+    // console.log('render()', count)
     return (
       <div>
         <p>click {count} times</p>
